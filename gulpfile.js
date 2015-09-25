@@ -9,6 +9,9 @@ concat = require('gulp-concat');
 uglify = require('gulp-uglify');
 uglifycss = require('gulp-minify-css');
 
+//My Defined Tasks
+var build_js = require('./gulp/build_js');
+
 // create a default task
 gulp.task('default', ['live-build', 'watch']);
 
@@ -31,15 +34,7 @@ gulp.task('live-build', function(){
   gutil.log('live-build listeners started.....');
 });
 
-gulp.task('build-js', function() {
-  return gulp.src('src/js/**/*.js')
-    .pipe(sourcemaps.init())
-    .pipe(concat('bundle.js'))
-    //only uglify if gulp is ran with '--type production'
-    .pipe(gutil.env.type === 'production' ? uglify() : gutil.noop())
-    .pipe(sourcemaps.write())
-    .pipe(gulp.dest('build'));
-});
+gulp.task('build-js', build_js);
 gulp.task('build-css', function() {
   return gulp.src('src/css/*.css')
   .pipe(concat('bundle.css'))
