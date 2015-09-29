@@ -10,7 +10,7 @@ build_css = function() {
   return gulp.src(cvars.src_css)
     .pipe(concat('bundle.css'))
     //only uglify if gulp is ran with '--type production'
-    .pipe(gutil.env.type === 'production' ? uglifycss() : gutil.noop())
+    .pipe(gutil.env.production === true ? uglifycss() : gutil.noop())
     .pipe(gulp.dest(cvars.dest));
 }
 

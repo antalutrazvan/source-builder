@@ -9,12 +9,12 @@ var gulp = require('gulp'),
 
 build_js = function() {
   return gulp.src(cvars.src_js)
-    .pipe(gutil.env.script === 'es6' ? babel() : gutil.noop())
-    .pipe(sourcemaps.init())
+    .pipe(gutil.env.es6 === true ? babel() : gutil.noop())
+    .pipe(gutil.env.production === true ? sourcemaps.init() : gutil.noop())
     .pipe(concat('bundle.js'))
     //only uglify if gulp is ran with '--type production'
-    .pipe(gutil.env.type === 'production' ? uglify() : gutil.noop())
-    .pipe(sourcemaps.write())
+    .pipe(gutil.env.production === true ? uglify() : gutil.noop())
+    .pipe(gutil.env.production === true ?  sourcemaps.write() : gutil.noop())
     .pipe(gulp.dest(cvars.dest));
 };
 

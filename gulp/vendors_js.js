@@ -8,11 +8,11 @@ cvars = require('./cvars');
 
 var vendors_js = function() {
   return gulp.src(cvars.ext_js)
-    .pipe(sourcemaps.init())
+    .pipe(gutil.env.production === true ? sourcemaps.init() : gutil.noop())
     .pipe(concat('vendors.js'))
     //only uglify if gulp is ran with '--type production'
-    .pipe(gutil.env.type === 'production' ? uglify() : gutil.noop())
-    .pipe(sourcemaps.write())
+    .pipe(gutil.env.production === true ? uglify() : gutil.noop())
+    .pipe(gutil.env.production === true ?  sourcemaps.write() : gutil.noop())
     .pipe(gulp.dest(cvars.dest));
 }
 

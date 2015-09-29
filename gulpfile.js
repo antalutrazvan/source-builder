@@ -26,4 +26,7 @@ gulp.task('build', ['build_js', 'build_css', 'vendors_js', 'vendors_css']);
 
 
 // create the default task and assign what tasks to run
-gulp.task('default', ['build', 'live_build', 'watch']);
+if (gutil.env.build === true)
+  gulp.task('default', ['build']);
+else
+  gulp.task('default', ['build', 'live_build', 'watch']);

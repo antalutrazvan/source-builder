@@ -9,7 +9,7 @@ var vendors_css = function() {
   return gulp.src(cvars.ext_css)
     .pipe(concat('vendors.css'))
     //only uglify if gulp is ran with '--type production'
-    .pipe(gutil.env.type === 'production' ? uglifycss() : gutil.noop())
+    .pipe(gutil.env.production === true ? uglifycss() : gutil.noop())
     .pipe(gulp.dest(cvars.dest));
 }
 
